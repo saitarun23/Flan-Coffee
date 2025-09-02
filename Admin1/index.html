@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flan Coffee - Product Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <h1>☕ Flan Coffee - Admin Panel</h1>
+  </nav>
+
+  <main>
+    <!-- Product Form -->
+    <section class="form-section">
+      <h2 id="form-title">Add Product</h2>
+      <form id="productForm">
+        <input type="hidden" id="productId">
+        <input type="text" id="name" placeholder="Product Name" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <input type="number" id="price" placeholder="Price" required>
+        <input type="number" id="quantity" placeholder="Quantity" required>
+        <input type="file" id="image" accept="image/*">
+        <img id="image-preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px; margin-top: 10px; display: none;">
+        <button type="submit">Save Product</button>
+      </form>
+    </section>
+
+    <!-- Product List -->
+    <section class="table-section">
+      <h2>All Products</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Description</th>
+            <th>Price</th><th>Quantity</th><th>Image</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

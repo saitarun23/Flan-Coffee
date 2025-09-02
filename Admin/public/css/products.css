@@ -1,0 +1,32 @@
+/* Coffee-themed product tiles */
+:root{
+  --bg:#f7f3ef;
+  --card:#fff9f6;
+  --accent:#6b4b32;
+  --muted:#8b7b71;
+  --danger:#c94a3f;
+  --radius:12px;
+}
+
+.products-page{display:flex;gap:20px;padding:24px;max-width:1200px;margin:20px auto}
+.product-form{flex:0 0 320px;background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 6px 22px rgba(0,0,0,0.06)}
+.product-form label{display:block;font-size:13px;color:var(--muted);margin-bottom:10px}
+.product-form input[type=text],.product-form input[type=number],.product-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6d6c9;background:#fff;margin-top:6px}
+.product-form textarea{min-height:80px;resize:vertical}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.btn.primary{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:none}
+.btn{background:#fff;padding:8px 12px;border-radius:8px;border:1px solid #e5d8cf}
+
+.product-grid{flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.tile{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(107,75,50,0.06);box-shadow:0 8px 20px rgba(101,73,46,0.04);display:flex;flex-direction:column;gap:8px}
+.tile .title{font-weight:700;color:var(--accent);font-size:16px}
+.tile .meta{color:var(--muted);font-size:13px}
+.tile .price{font-weight:700;color:var(--accent)}
+.tile .qty{font-size:13px;color:#5a4a40}
+.tile .tile-actions{display:flex;gap:8px;justify-content:flex-end}
+.icon-btn{background:transparent;border:1px solid transparent;padding:8px;border-radius:8px;cursor:pointer}
+.icon-btn.danger{color:var(--danger)}
+
+/* responsive */
+@media (max-width:900px){.products-page{flex-direction:column}.product-form{order:2;width:100%}.product-grid{order:1}}

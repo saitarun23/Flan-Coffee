@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Manage Products — Flan Coffee</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h2>Product Management</h2>
+      <div class="top-actions">
+        <button id="addBtn" class="icon-btn" title="Add product">➕</button>
+        <button id="updateBtn" class="icon-btn" title="Update selected">✏️</button>
+        <button id="deleteBtn" class="icon-btn danger" title="Delete selected">🗑️</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="products-page">
+    <aside class="product-form">
+      <form id="productForm">
+        <input type="hidden" id="productId">
+        <label>Product name<input id="name" type="text" placeholder="Name" required></label>
+        <label>Description<textarea id="description" placeholder="Description" required></textarea></label>
+        <label>Price<input id="price" type="number" step="0.01" placeholder="0.00" required></label>
+        <label>Weight<input id="weight" type="text" placeholder="250g, 500g, 1kg" required></label>
+        <label>Quantity<input id="quantity" type="number" placeholder="0" required></label>
+        <label>Image<input type="file" id="image" name="image" accept="image/*"></label>
+        <div class="form-actions">
+          <button type="button" class="btn primary" id="addSubmit">Add</button>
+          <button type="button" class="btn" id="updateSubmit">Update</button>
+        </div>
+      </form>
+    </aside>
+
+    <section class="product-grid">
+      <div id="productGrid" class="grid"></div>
+    </section>
+  </main>
+
+  <script src="/js/adminproduct.js"></script>
+</body>
+</html>
