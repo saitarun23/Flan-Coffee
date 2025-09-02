@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
 // routes
-app.use("/api/v1/user", require("./routes/userRouter"));
+app.use("/api/v1/user", require("./routes/userRoutes"));
 
 // Serve user.html
 app.get("/", (req, res) => {
