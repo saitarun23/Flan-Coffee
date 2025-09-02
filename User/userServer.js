@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mySqlPool = require("./config/db");
 const path = require("path");
+const cors = require("cors"); 
+const productsRoute = require("./routes/products");
 
 // config
 dotenv.config();
@@ -13,6 +15,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
+app.use(cors());
+app.use(express.json());
+
+//get all products
+app.use("/products", productsRoute);
+
+app.listen(4000, () => console.log("User server running on http://localhost:4000"));
 
 // routes
 app.use("/api/v1/user", require("./routes/userRoutes"));

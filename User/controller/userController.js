@@ -4,14 +4,14 @@ const bcrypt = require("bcryptjs");
 // Register user
 const registerUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
-    if (!username || !password) {
+    if (!username || !email || !password) {
       return res.status(400).send({ success: false, message: "All fields required" });
     }
 
     // Check if user exists
-    const [existing] = await db.query("SELECT * FROM users WHERE username=?", [username]);
+    const [existing] = await db.query("SELECT * FROM users WHERE email=?", [email]);
     if (existing.length > 0) {
       return res.status(400).send({ success: false, message: "User already exists" });
     }
@@ -19,8 +19,9 @@ const registerUser = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await db.query("INSERT INTO users (username, password) VALUES (?, ?)", [
+    await db.query("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [
       username,
+      email,
       hashedPassword,
     ]);
 
@@ -34,13 +35,13 @@ const registerUser = async (req, res) => {
 // Login user
 const loginUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username || !password) {
+    if (!email || !password) {
       return res.status(400).send({ success: false, message: "All fields required" });
     }
 
-    const [rows] = await db.query("SELECT * FROM users WHERE username=?", [username]);
+    const [rows] = await db.query("SELECT * FROM users WHERE email=?", [email]);
 
     if (rows.length === 0) {
       return res.status(401).send({ success: false, message: "Invalid credentials" });
@@ -53,7 +54,10 @@ const loginUser = async (req, res) => {
       return res.status(401).send({ success: false, message: "Invalid credentials" });
     }
 
-    res.status(200).send({ success: true, message: "Login successful", userId: user.uid });
+    // Check for 'username' or 'name' property, with a fallback to the email prefix.
+    const username = user.username || user.name || user.email.split('@')[0];
+
+    res.status(200).send({ success: true, message: "Login successful", user: user });
   } catch (error) {
     console.error(error);
     res.status(500).send({ success: false, message: "Error logging in", error });

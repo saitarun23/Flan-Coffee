@@ -1,4 +1,5 @@
 const express=require('express');
+const session = require('express-session');
 const colors=require('colors');
 const morgan=require('morgan');
 const dotenv=require('dotenv');
@@ -14,15 +15,35 @@ const app=express();
 //middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(session({
+    secret: 'your_secret_key', // Replace with a real secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
 
 // Static Files
 app.use(express.static(__dirname));
 
 //routes
 app.use('/api/v1/product',require('./routes/productRoutes'));
+app.use('/api/v1/admin', require('./routes/adminRoutes'));
 
-app.get('/', (req, res) => {
+// Middleware to protect routes
+const checkAuth = (req, res, next) => {
+    if (req.session.user) {
+        next(); // User is authenticated, proceed to the route
+    } else {
+        res.redirect('/login.html'); // Not authenticated, redirect to login
+    }
+};
+
+app.get('/', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
 });
 
 
