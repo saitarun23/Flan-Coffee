@@ -24,3 +24,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         errorMessage.textContent = 'An error occurred during login. Please try again.';
     }
 });
+
+document.getElementById('showPassword').addEventListener('change', function() {
+  const pwd = document.getElementById('password');
+  pwd.type = this.checked ? 'text' : 'password';
+});

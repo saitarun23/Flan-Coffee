@@ -4,7 +4,7 @@ const { get } = require("../routes/productRoutes");
 //get product
 const getProducts = async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT id, name, description, price, quantity, image FROM products');
+        const [rows] = await db.query('SELECT pid, name, description, price_small, price_medium, price_large, quantity_small, quantity_medium, quantity_large, image FROM products');
         if (!rows) {
             return res.status(404).send({
                 success: false,
@@ -46,7 +46,7 @@ const getProductById= async (req,res)=>{
                 message:"Product id is required or invalid"
             })
         }
-    const data=await db.query('SELECT * FROM products WHERE id=?',[prodcutid]);
+    const data=await db.query('SELECT * FROM products WHERE pid=?',[prodcutid]);
         if(!data){
             return res.status(404).send({
                 success:false,
@@ -71,8 +71,8 @@ const getProductById= async (req,res)=>{
 //create product
 const createProduct = async (req, res) => {
     try {
-        const { name, description, price, quantity } = req.body;
-        if (!name || !description || !price || !quantity) {
+        const { name, description, price_small, price_medium, price_large, quantity_small, quantity_medium, quantity_large } = req.body;
+        if (!name || !description || !price_small || !price_medium || !price_large || !quantity_small || !quantity_medium || !quantity_large) {
             return res.status(500).send({
                 success: false,
                 message: "All fields are required"
@@ -89,7 +89,7 @@ const createProduct = async (req, res) => {
             });
         }
 
-        const productData = { name, description, price, quantity, image };
+        const productData = { name, description, price_small, price_medium, price_large, quantity_small, quantity_medium, quantity_large, image };
         const data = await db.query('INSERT INTO products SET ?', [productData]);
         if (!data) {
             return res.status(404).send({
@@ -123,15 +123,13 @@ const updateProduct = async (req, res) => {
                 message: "Product id is required or invalid"
             });
         }
-        const { name, description, price, quantity } = req.body;
-        
-        const productData = { name, description, price, quantity };
-
+        const { name, description, price_small, price_medium, price_large, quantity_small, quantity_medium, quantity_large } = req.body;
+        const productData = { name, description, price_small, price_medium, price_large, quantity_small, quantity_medium, quantity_large };
         if (req.file) {
             productData.image = req.file.buffer;
         }
 
-        const data = await db.query('UPDATE products SET ? WHERE id=?', [productData, productId]);
+        const data = await db.query('UPDATE products SET ? WHERE pid=?', [productData, productId]);
         if (!data) {
             return res.status(500).send({
                 success: false,
@@ -163,7 +161,7 @@ const deleteProduct= async (req,res)=>{
                 message:"Product id is required or invalid"
             })
         }
-        const data=await db.query('DELETE FROM products WHERE id=?',[prodcutid]);
+        const data=await db.query('DELETE FROM products WHERE pid=?',[prodcutid]);
         if(!data){
             return res.status(500).send({
                 success:false,

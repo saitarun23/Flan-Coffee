@@ -22,24 +22,31 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-// Static Files
-app.use(express.static(__dirname));
+// Serve static files except index.html
+app.use(express.static(__dirname, { index: false }));
 
 //routes
 app.use('/api/v1/product',require('./routes/productRoutes'));
 app.use('/api/v1/admin', require('./routes/adminRoutes'));
 
-// Middleware to protect routes
+
+// Middleware to protect admin page
 const checkAuth = (req, res, next) => {
-    if (req.session.user) {
-        next(); // User is authenticated, proceed to the route
+    if (req.session && req.session.user) {
+        next();
     } else {
-        res.redirect('/login.html'); // Not authenticated, redirect to login
+        res.redirect('/login.html');
     }
 };
 
-app.get('/', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+// Redirect root to login page
+app.get('/', (req, res) => {
+    res.redirect('/login.html');
+});
+
+// Serve admin page only if authenticated
+app.get('/admin', checkAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
 });
 
 app.get('/login', (req, res) => {

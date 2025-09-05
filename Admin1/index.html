@@ -7,7 +7,7 @@
 </head>
 <body>
       <section id="header">
-        <a href="#"><img src="images/logo2.png" class="logo" alt=""></a>
+        <!-- <a href="#"><img src="images/logo2.png" class="logo" alt=""></a> -->
         <div>
             <ul id="navbar">
                 <li><a href="adminhome.html">Home</a></li>
@@ -27,8 +27,12 @@
         <input type="hidden" id="productId">
         <input type="text" id="name" placeholder="Product Name" required>
         <input type="text" id="description" placeholder="Description" required>
-        <input type="number" id="price" placeholder="Price" required>
-        <input type="number" id="quantity" placeholder="Quantity" required>
+        <input type="number" id="price_small" placeholder="Price (Small)" required>
+        <input type="number" id="price_medium" placeholder="Price (Medium)" required>
+        <input type="number" id="price_large" placeholder="Price (Large)" required>
+        <input type="number" id="quantity_small" placeholder="Quantity (Small)" required>
+        <input type="number" id="quantity_medium" placeholder="Quantity (Medium)" required>
+        <input type="number" id="quantity_large" placeholder="Quantity (Large)" required>
         <input type="file" id="image" accept="image/*">
         <img id="image-preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px; margin-top: 10px; display: none;">
         <button type="submit">Save Product</button>
@@ -41,7 +45,7 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Description</th>
+            <th>PID</th><th>Name</th><th>Description</th>
             <th>Price</th><th>Quantity</th><th>Image</th><th>Actions</th>
           </tr>
         </thead>

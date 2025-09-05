@@ -1,0 +1,64 @@
+<h2>Payment</h2>
+<p>Total: <span id="payment-total"></span></p>
+<button id="payBtn">Pay with Razorpay</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const orderId = localStorage.getItem("orderId");
+  const total = localStorage.getItem("orderTotal");
+
+  document.getElementById("payment-total").innerText = "Rs." + total;
+
+  document.getElementById("payBtn").onclick = async function () {
+    // 1. Create Razorpay order
+    const res = await fetch("/payments/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ oid: orderId, amount: total })
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      alert("Failed to create payment order");
+      return;
+    }
+
+    // 2. Open Razorpay checkout
+    const options = {
+      key: data.key,
+      amount: total * 100,
+      currency: "INR",
+      name: "Flan Coffee",
+      description: "Order Payment",
+      order_id: data.orderId,
+      handler: async function (response) {
+        // 3. Verify payment
+        await fetch("/payments/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+            oid: orderId
+          })
+        });
+
+        alert("Payment successful! ✅");
+        window.location.href = "/"; // redirect to orders or home
+      },
+      prefill: {
+        name: "Customer",
+        email: "customer@example.com",
+        contact: "9876543210"
+      },
+      theme: {
+        color: "#3399cc"
+      }
+    };
+
+    const rzp1 = new Razorpay(options);
+    rzp1.open();
+  };
+</script>

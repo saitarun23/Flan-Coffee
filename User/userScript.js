@@ -28,7 +28,13 @@ document.getElementById("userForm").addEventListener("submit", async (e) => {
     document.getElementById("result").textContent = data.message;
     if (data.success) {
       if (action === "login") {
-        localStorage.setItem("username", data.username); // Store username
+        // Store user id and username for later use (cart, etc)
+        if (data.user && data.user.uid) {
+          localStorage.setItem("uid", data.user.uid);
+        }
+        if (data.user && data.user.username) {
+          localStorage.setItem("username", data.user.username);
+        }
         window.location.href = "userhome.html";
       } else {
         // Registration successful, clear the form

@@ -31,6 +31,10 @@
       <div class="mb-3">
         <label>Password</label>
         <input type="password" id="password" class="form-control" required />
+        <div class="form-check mt-2">
+          <input class="form-check-input" type="checkbox" id="showPasswordCheck">
+          <label class="form-check-label" for="showPasswordCheck">Show Password</label>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary w-100" id="formBtn">Login</button>
@@ -45,5 +49,14 @@
   </div>
 
   <script src="userScript.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const passwordInput = document.getElementById('password');
+      const showPasswordCheck = document.getElementById('showPasswordCheck');
+      showPasswordCheck.addEventListener('change', function() {
+        passwordInput.type = this.checked ? 'text' : 'password';
+      });
+    });
+  </script>
 </body>
 </html>

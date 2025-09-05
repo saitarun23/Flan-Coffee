@@ -8,10 +8,9 @@ async function loadProducts() {
 
     products.forEach(p => {
       container.innerHTML += `
-        <div class="pro" onclick="window.location.href='sproduct.html?id=${p.id}'">
-          <img src="${p.image_url}" alt="${p.name}">
+        <div class="pro" onclick="window.location.href='sproduct.html?pid=${p.pid}'">
+          <img src="${p.image}" alt="${p.name}">
           <div class="des">
-            <span>Coffee</span>
             <h5>${p.name}</h5>
             <div class="star">
               <i class="fas fa-star"></i>
@@ -20,7 +19,7 @@ async function loadProducts() {
               <i class="fas fa-star"></i>
               <i class="fas fa-star-half-alt"></i>
             </div>
-            <h4>₹${p.price}</h4>
+            <h4>₹${p.price_small}</h4>
           </div>
           <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
         </div>
