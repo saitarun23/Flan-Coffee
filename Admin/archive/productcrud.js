@@ -1,1 +1,0 @@
-// archived original productcrud.js
