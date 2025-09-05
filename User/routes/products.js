@@ -78,6 +78,7 @@ router.get("/cart/:uid", async (req, res) => {
   }
 });
 
+
 // POST payment (dummy implementation)
 router.post("/payment", async (req, res) => {
   try {
@@ -143,6 +144,23 @@ router.post("/place-order", async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// GET latest 4 products
+router.get("/latest", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM products ORDER BY pid DESC LIMIT 4");
+    const products = rows.map(p => {
+      if (p.image) {
+        p.image = `data:image/jpeg;base64,${Buffer.from(p.image).toString("base64")}`;
+      }
+      return p;
+    });
+    res.json(products);
+  } catch (err) {
+    console.error("Error fetching latest products:", err);
+    res.status(500).send("Error fetching latest products");
   }
 });
 

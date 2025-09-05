@@ -91,150 +91,57 @@
     <section id="product1" class="section-p1">
         <h2>Featured Brews</h2><br>
         <p>Rich, Bold & Aromatic</p>
-        <div class="pro-container">
-            <div class="pro">
-                <img src="images/p1.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Espresso</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>Rs.78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p2.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Latte</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p3.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Cappuccino</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p4.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Americano</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-        </div>
+        <div class="pro-container" id="featured-products"></div>
     </section>
+
+    <script>
+    async function loadProducts() {
+      try {
+        let response = await fetch("http://localhost:4000/products"); // or /products/home if you use backend limit
+        let products = await response.json();
+        let container = document.getElementById("featured-products");
+        container.innerHTML = "";
+        products.slice(0, 8).forEach(p => {
+          container.innerHTML += `
+            <div class=\"pro\" onclick=\"window.location.href='sproduct.html?pid=${p.pid}'\">
+              <img src="${p.image}" alt="${p.name}">
+              <div class=\"des\">
+                <h5>${p.name}</h5>
+                <div class=\"star\">
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star-half-alt\"></i>
+                </div>
+                <h4>₹${p.price_small || p.price}</h4>
+              </div>
+              <a href="#"><i class=\"fal fa-shopping-cart cart\"></i></a>
+            </div>
+          `;
+        });
+      } catch (err) {
+        console.error("Error loading products:", err);
+      }
+    }
+    loadProducts();
+    </script>
 
     <section id="banner" class="section-m1">
         <h4>Repair Services</h4>
         <h2>Up to <span>50% Off</span>-All Coffees & Tea</h2>
-        <button class="normal">Explore More</button>
+        <button class="normal" onclick="window.location.href='shop.html'">Explore More</button>
     </section>
 
-     <section id="product1" class="section-p1">
-        <h2>Coffee Collection</h2><br>
-        <p>Freshly Roasted Collection</p>
-        <div class="pro-container">
-            <div class="pro">
-                <img src="images/p5.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Macchiato</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>Rs.78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p6.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Cold Brew</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p7.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Macchiato</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>
-            <div class="pro">
-                <img src="images/p8.png" alt="">
-                <div class="des">
-                    <span>Coffee</span>
-                    <h5>Mocha</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h4>$78</h4>
-                </div>
-                <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
-            </div>            
-        </div>
-    </section>
+    <section id="product-latest" class="section-p1">
+    <h2>Coffee Collection</h2><br>
+    <p>Freshly Roasted Collection</p>
+    <div class="pro-container" id="latest-products"></div>
+    <div style="text-align:center; margin-top:20px;">
+        <a href="shop.html" class="btn" style="padding:10px 30px; background:#222; color:#fff; border-radius:5px; text-decoration:none; font-weight:bold; white-space:nowrap;">LatestProducts</a>
+    </div>
+</section>
+    
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">
