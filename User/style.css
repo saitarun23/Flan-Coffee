@@ -1,3 +1,4 @@
+/* ========== GLOBAL RESET & BASE ========== */
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 *{
     margin: 0;
@@ -27,6 +28,7 @@ body{
     width:100%;;
 }
 
+/* ========== HEADER & NAVBAR ========== */
 #header{
     display: flex;
     justify-content: space-between;
@@ -76,6 +78,7 @@ body{
     left: 20px;
 }
 
+/* ========== HERO SECTION ========== */
 #hero{
     background: url(images/hero1.jpg) no-repeat center;
     background-size: cover;
@@ -109,10 +112,12 @@ body{
     transition: 0.3s ease;
 }
 
+/* ========== SECTION PADDING ========== */
 .section-p1{
     padding: 40px 80px;
 }
 
+/* ========== CONTAINER ========== */
 .container{
     position: relative;
     width: 100%;
@@ -149,6 +154,7 @@ body{
     margin-bottom: 1rem;
 }
 
+/* ========== BUTTONS ========== */
 .btn{
     display: inline-block;
     padding: 0.6rem 1rem;
@@ -178,6 +184,7 @@ body{
     transition: 0.2s ease;
 }
 
+/* ========== SWIPER (CAROUSEL) ========== */
 /* .swiper-button-next{
     background: url(images/next.png);
     background-repeat: no-repeat;
@@ -204,6 +211,7 @@ body{
     display: none;
 } */
 
+/* ========== FEATURE SECTION ========== */
 #feature{
     display: flex;
     justify-content: space-between;
@@ -259,6 +267,7 @@ body{
     background-color: #fff2e5;
 }
 
+/* ========== PRODUCT SECTION ========== */
 #product1{
     text-align: center;
 }
@@ -333,6 +342,7 @@ body{
     right: 10px;
 }
 
+/* ========== BANNER SECTION ========== */
 #banner{
     background-image: url(images/bg.png);
     background-size: cover;
@@ -365,6 +375,7 @@ body{
     color: #fff;
 }
 
+/* ========== NEWSLETTER SECTION ========== */
 #newsletter{
     background-image: url(images/b14.png);
     background-repeat: no-repeat;
@@ -418,6 +429,7 @@ body{
     border-bottom-left-radius: 0;
 }
 
+/* ========== FOOTER ========== */
 footer{
     display: flex;
     flex-wrap: wrap;
@@ -483,7 +495,7 @@ footer .copyright {
     text-align: center;
 }
 
-
+/* ========== PAGINATION ========== */
 #pagination{
     text-align: center;
 }
@@ -502,6 +514,7 @@ footer .copyright {
     font-weight: 600;
 }
 
+/* ========== PRODUCT DETAILS PAGE ========== */
 #pdetails .singlre-pro-image{
     width: 40%;
     margin-right: 50px;
@@ -569,7 +582,7 @@ footer .copyright {
     line-height: 25px;
 }
 
-
+/* ========== PAGE HEADER ========== */
 #page-header{
     background-size: cover;
     height: 40vh;
@@ -592,6 +605,7 @@ footer .copyright {
     background-image: url(images/banner.png);
 }
 
+/* ========== ABOUT PAGE ========== */
 #about-head{
     display:flex;
     align-items: center;
@@ -622,6 +636,7 @@ footer .copyright {
     border-radius: 20px;
 }
 
+/* ========== CONTACT PAGE ========== */
 #contact-details{
     display: flex;
     align-items: center;
