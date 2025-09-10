@@ -9,18 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   logoutLink.addEventListener("click", () => {
     localStorage.removeItem("user");
-    window.location.href = "user.html";
-  });
-});entListener("DOMContentLoaded", () => {
-  const userInfo = document.getElementById("user-info");
-  const logoutLink = document.getElementById("logout");
-  const username = localStorage.getItem("username");
-
-  if (username && username !== "undefined") {
-    userInfo.innerHTML = `<li><span>Welcome, ${username}</span></li>`;
-  }
-
-  logoutLink.addEventListener("click", () => {
     localStorage.removeItem("username");
     window.location.href = "user.html";
   });

@@ -6,7 +6,13 @@ const pool = require("../config/db");
 // GET all products
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM products");
+      let query = "SELECT * FROM products";
+      let params = [];
+      if (req.query.latest) {
+        query += " ORDER BY pid DESC LIMIT ?";
+        params.push(parseInt(req.query.latest));
+      }
+      const [rows] = await pool.query(query, params);
 
     const products = rows.map(p => {
       if (p.image) {
@@ -148,20 +154,15 @@ router.post("/place-order", async (req, res) => {
 });
 
 // GET latest 4 products
-router.get("/latest", async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM products ORDER BY pid DESC LIMIT 4");
-    const products = rows.map(p => {
-      if (p.image) {
-        p.image = `data:image/jpeg;base64,${Buffer.from(p.image).toString("base64")}`;
-      }
-      return p;
-    });
-    res.json(products);
-  } catch (err) {
-    console.error("Error fetching latest products:", err);
-    res.status(500).send("Error fetching latest products");
-  }
-});
+  router.get("/latest", async (req, res) => {
+    try {
+      const [rows] = await mySqlPool.query(
+        "SELECT * FROM products ORDER BY pid DESC LIMIT 4"
+      );
+      res.json(rows);
+    } catch (err) {
+      res.status(500).json({ error: "Error fetching latest products" });
+    }
+  });
 
 module.exports = router;

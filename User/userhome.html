@@ -133,14 +133,45 @@
         <button class="normal" onclick="window.location.href='shop.html'">Explore More</button>
     </section>
 
+    <!-- Dynamically load the latest 4 products for the Coffee Collection section-->
     <section id="product-latest" class="section-p1">
-    <h2>Coffee Collection</h2><br>
-    <p>Freshly Roasted Collection</p>
-    <div class="pro-container" id="latest-products"></div>
-    <div style="text-align:center; margin-top:20px;">
-        <a href="shop.html" class="btn" style="padding:10px 30px; background:#222; color:#fff; border-radius:5px; text-decoration:none; font-weight:bold; white-space:nowrap;">LatestProducts</a>
-    </div>
+        <h2>Coffee Collection</h2><br>
+        <p>Freshly Roasted Collection</p>
+        <div class="pro-container" id="latest-products"></div>
     </section>
+
+    <script>
+    async function loadLatestProducts() {
+        try {
+            let response = await fetch("http://localhost:4000/products?latest=4");
+            let products = await response.json();
+            let container = document.getElementById("latest-products");
+            container.innerHTML = "";
+            products.forEach(p => {
+                container.innerHTML += `
+                    <div class=\"pro\" onclick=\"window.location.href='sproduct.html?pid=${p.pid}'\">
+                        <img src="${p.image}" alt="${p.name}">
+                        <div class=\"des\">
+                            <h5>${p.name}</h5>
+                            <div class=\"star\">
+                                <i class=\"fas fa-star\"></i>
+                                <i class=\"fas fa-star\"></i>
+                                <i class=\"fas fa-star\"></i>
+                                <i class=\"fas fa-star\"></i>
+                                <i class=\"fas fa-star-half-alt\"></i>
+                            </div>
+                            <h4>₹${p.price_small || p.price}</h4>
+                        </div>
+                        <a href=\"#\"><i class=\"fal fa-shopping-cart cart\"></i></a>
+                    </div>
+                `;
+            });
+        } catch (err) {
+            console.error("Error loading latest products:", err);
+        }
+    }
+    loadLatestProducts();
+    </script>
     
 
     <section id="newsletter" class="section-p1 section-m1">
