@@ -101,7 +101,7 @@
         let products = await response.json();
         let container = document.getElementById("featured-products");
         container.innerHTML = "";
-        products.slice(0, 8).forEach(p => {
+        products.slice(0, 4).forEach(p => {
           container.innerHTML += `
             <div class=\"pro\" onclick=\"window.location.href='sproduct.html?pid=${p.pid}'\">
               <img src="${p.image}" alt="${p.name}">
@@ -133,14 +133,14 @@
         <button class="normal" onclick="window.location.href='shop.html'">Explore More</button>
     </section>
 
-    <!-- <section id="product-latest" class="section-p1">
+    <section id="product-latest" class="section-p1">
     <h2>Coffee Collection</h2><br>
     <p>Freshly Roasted Collection</p>
     <div class="pro-container" id="latest-products"></div>
     <div style="text-align:center; margin-top:20px;">
         <a href="shop.html" class="btn" style="padding:10px 30px; background:#222; color:#fff; border-radius:5px; text-decoration:none; font-weight:bold; white-space:nowrap;">LatestProducts</a>
     </div>
-    </section> -->
+    </section>
     
 
     <section id="newsletter" class="section-p1 section-m1">
