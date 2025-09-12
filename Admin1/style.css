@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 *{
     margin: 0;
@@ -205,4 +206,27 @@ button.edit {
 button.delete {
   background: #dc3545;
   color: white;
+}
+/* Ensure product images section is visible and styled */
+#product-images-section {
+  background: #fff;
+  margin: 30px 0;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: block;
+}
+
+#product-images-section h2 {
+  color: #6f4e37;
+  margin-bottom: 15px;
+}
+
+#product-images-section form {
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+#product-images-section #imageGallery {
+  margin-top: 20px;
 }

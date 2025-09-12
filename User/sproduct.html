@@ -26,27 +26,47 @@
     </section>
 
     <section id="prodetail" class="section-p1">
-        <div class="single-pro-image">
-            <img src="" width="100%" id="MainImg" alt="Product Image">
-            <div class="small-img-group" id="small-img-group">
-                <!-- Thumbnails will be loaded dynamically -->
-            </div>
-        </div>
-        <div class="single-pro-details">  
-            <!-- <h6 id="product-category">Home / Coffee</h6> -->
-            <h4 id="product-name"></h4>
-            <h2 id="product-price"></h2>
-            <select id="product-size">
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-            </select>
-            <input type="number" value="1" id="product-qty" min="1" step="1"> 
-            <button class="normal" id="add-to-cart-btn">Add To Cart</button>
-            <h4>Product Details</h4>     
-            <span id="product-desc"></span>
-        </div>
+    <div id="product"></div>
+    <script src="sproduct.js"></script>
+
+    <section id="product1" class="section-p1">
+        <h2>You may also like this</h2><br>
+        <p>Rich, Bold & Aromatic</p>
+        <div class="pro-container" id="featured-products"></div>
     </section>
+
+    <script>
+    async function loadProducts() {
+      try {
+        let response = await fetch("http://localhost:4000/products"); // or /products/home if you use backend limit
+        let products = await response.json();
+        let container = document.getElementById("featured-products");
+        container.innerHTML = "";
+        products.slice(0, 8).forEach(p => {
+          container.innerHTML += `
+            <div class=\"pro\" onclick=\"window.location.href='sproduct.html?pid=${p.pid}'\">
+              <img src="${p.image}" alt="${p.name}">
+              <div class=\"des\">
+                <h5>${p.name}</h5>
+                <div class=\"star\">
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star\"></i>
+                  <i class=\"fas fa-star-half-alt\"></i>
+                </div>
+                <h4>₹${p.price_small || p.price}</h4>
+              </div>
+              <a href="#"><i class=\"fal fa-shopping-cart cart\"></i></a>
+            </div>
+          `;
+        });
+      } catch (err) {
+        console.error("Error loading products:", err);
+      }
+    }
+    loadProducts();
+    </script>
 
     <section id="newsletter" class="section-p1 section-m1">
         <div class="newstext">

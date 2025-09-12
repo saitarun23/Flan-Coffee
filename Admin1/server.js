@@ -38,6 +38,8 @@ const checkAuth = (req, res, next) => {
         res.redirect('/login.html');
     }
 };
+// Product images routes (multiple images per product)
+app.use('/api/v1/product', require('./routes/productImagesRoutes'));
 
 // Redirect root to login page
 app.get('/', (req, res) => {

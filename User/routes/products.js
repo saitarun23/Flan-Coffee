@@ -32,6 +32,7 @@ router.get("/", async (req, res) => {
 // GET single product by PID
 router.get("/:pid", async (req, res) => {
   try {
+    // Get main product info
     const [rows] = await pool.query(
       "SELECT * FROM products WHERE pid = ?",
       [req.params.pid]
@@ -40,9 +41,21 @@ router.get("/:pid", async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
     const product = rows[0];
-    if (product.image) {
-      product.image = `data:image/jpeg;base64,${Buffer.from(product.image).toString("base64")}`;
+
+    // Ensure main image is base64 string
+    if (product.image && Buffer.isBuffer(product.image)) {
+      product.image = product.image.toString('base64');
     }
+
+    // Get all images for this product (assuming a product_images table with pid, image columns)
+    const [imgRows] = await pool.query(
+      "SELECT image FROM product_images WHERE pid = ?",
+      [req.params.pid]
+    );
+    product.images = imgRows.map(img => ({
+      image: Buffer.isBuffer(img.image) ? img.image.toString('base64') : img.image
+    }));
+
     res.json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });

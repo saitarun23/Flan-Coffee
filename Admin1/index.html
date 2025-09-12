@@ -19,6 +19,7 @@
         </div>
     </section>
 
+
   <main>
     <!-- Product Form -->
     <section class="form-section">
@@ -26,7 +27,7 @@
       <form id="productForm">
         <input type="hidden" id="productId">
         <input type="text" id="name" placeholder="Product Name" required>
-        <input type="text" id="description" placeholder="Description" required>
+        <textarea id="description" placeholder="Enter product description" rows="4" style="resize:vertical;min-height:60px;" required></textarea>
         <input type="number" id="price_small" placeholder="Price (Small)" required>
         <input type="number" id="price_medium" placeholder="Price (Medium)" required>
         <input type="number" id="price_large" placeholder="Price (Large)" required>
@@ -50,6 +51,37 @@
           </tr>
         </thead>
         <tbody id="productTableBody"></tbody>
+      </table>
+    </section>
+
+    <!-- Product Images Upload & Gallery -->
+    <section id="product-images-section">
+      <h2>Upload Product Images</h2>
+      <form id="imageForm" enctype="multipart/form-data">
+        <input type="number" id="imgPid" name="pid" placeholder="Product ID" required>
+        <input type="file" id="images" name="images" multiple required>
+        <button type="submit">Upload Images</button>
+      </form>
+      <div id="uploadMsg"></div>
+      <div id="imageGallery" style="margin-top:20px;">
+        <div id="thumbnails"></div>
+        <img id="mainImage" style="max-width:300px;display:block;margin-top:10px;">
+      </div>
+    </section>
+
+    <!-- Product Images List -->
+    <section class="table-section">
+      <h2>Product Images List</h2>
+      <table border="1" id="productImagesTable">
+        <thead>
+          <tr>
+            <th>Image ID</th>
+            <th>Product ID</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productImagesTableBody"></tbody>
       </table>
     </section>
   </main>

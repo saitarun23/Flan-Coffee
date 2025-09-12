@@ -13,14 +13,13 @@ async function initCart() {
 
   const cartContainer = document.getElementById('cart-list');
   const cartTotal = document.getElementById('cart-total');
-  const payBtn = document.getElementById('pay-btn');
-  const paymentResult = document.getElementById('payment-result');
+  // Payment code removed
 
   let total = 0;
   if (cartItems.length === 0) {
     cartContainer.innerHTML = '<p>Your cart is empty.</p>';
     cartTotal.textContent = '';
-    payBtn.disabled = true;
+    // Payment code removed
     return;
   }
 
@@ -41,29 +40,7 @@ async function initCart() {
   });
   updateCartTotal(); // <-- ensure total is shown after rendering
 
-  payBtn.disabled = false;
-  payBtn.onclick = async () => {
-    // 1. Place order in DB
-    const res = await fetch('/orders/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ uid })
-    });
-    const data = await res.json();
-    if (data.oid) {
-      // 2. Create Razorpay Order
-      const total = parseFloat(document.getElementById('cart-total').textContent.replace(/[^\d.]/g, ''));
-      const res2 = await fetch('/payments/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: total, oid: data.oid })
-      });
-      const orderData = await res2.json();
-      openRazorpay(orderData, data.oid, total);
-    } else {
-      paymentResult.textContent = 'Order creation failed.';
-    }
-  };
+  // Payment code removed
 
   cartContainer.addEventListener('click', async (e) => {
     console.log('cartContainer click event fired');
@@ -126,35 +103,4 @@ async function removeFromCart(cart_id) {
   location.reload();
 }
 
-function openRazorpay(orderData, oid, total) {
-  const options = {
-    key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay key_id or inject from backend
-    amount: orderData.amount,
-    currency: orderData.currency,
-    name: "Flan Coffee",
-    description: "Order Payment",
-    order_id: orderData.id,
-    handler: async function (response) {
-      // 3. Verify payment
-      await fetch("/payments/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-          oid,
-          amount: total,
-          method: "RAZORPAY"
-        })
-      });
-      alert("Payment Successful!");
-      window.location.href = "thankyou.html";
-    },
-    theme: {
-      color: "#3399cc"
-    }
-  };
-  const rzp1 = new Razorpay(options);
-  rzp1.open();
-}
+
